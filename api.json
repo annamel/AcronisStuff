@@ -1,0 +1,221 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "This is API for cloud-based microservice",
+    "version" : "1.0.0",
+    "title" : "Simple Inventory API",
+    "contact" : {
+      "email" : "newmail@mail.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "basePath" : "/None368/Acronis/1.0.0",
+  "tags" : [ {
+    "name" : "All",
+    "description" : "commands for all docs"
+  }, {
+    "name" : "Logs",
+    "description" : "commands for logs"
+  }, {
+    "name" : "Metric",
+    "description" : "commands for metrics"
+  } ],
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/all" : {
+      "get" : {
+        "tags" : [ "All" ],
+        "summary" : "Get all info",
+        "description" : "Return info about all stuff on the server",
+        "operationId" : "getAllInfo",
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "string",
+              "example" : "example2"
+            }
+          },
+          "404" : {
+            "description" : "NOT OK"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "All" ],
+        "summary" : "Delete all",
+        "description" : "Delete all stuff on the server",
+        "operationId" : "deleteAll",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/logs" : {
+      "post" : {
+        "tags" : [ "Logs" ],
+        "summary" : "Post logs",
+        "description" : "Post logs to server",
+        "operationId" : "PostLogs",
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "logs",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "format" : "binary"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Logs" ],
+        "summary" : "Delete all logs",
+        "operationId" : "deleteAllLogs",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/logs/{id}" : {
+      "get" : {
+        "tags" : [ "Logs" ],
+        "summary" : "Get tail of log",
+        "description" : "Get logs by id from server",
+        "operationId" : "GetLogsById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Logs id",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "NOT FOUND"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Logs" ],
+        "summary" : "Delete logs by id",
+        "description" : "Delete logs by id from server",
+        "operationId" : "DeleteLogsById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Logs id",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "NOT FOUND"
+          }
+        }
+      }
+    },
+    "/metrics" : {
+      "post" : {
+        "tags" : [ "Metric" ],
+        "summary" : "Post logs",
+        "description" : "Post logs to server",
+        "operationId" : "PostMetric",
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "logs",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "format" : "binary"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Metric" ],
+        "summary" : "Delete all logs",
+        "operationId" : "deleteAllMetrics",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/metrics/{id}" : {
+      "get" : {
+        "tags" : [ "Metric" ],
+        "summary" : "Get tail of log",
+        "description" : "Get logs by id from server",
+        "operationId" : "GetMetricById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Logs id",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "NOT FOUND"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Metric" ],
+        "summary" : "Delete logs by id",
+        "description" : "Delete logs by id from server",
+        "operationId" : "DeleteMetricById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Logs id",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "NOT FOUND"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : { }
+}
