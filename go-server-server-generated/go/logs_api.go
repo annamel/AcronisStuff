@@ -11,6 +11,7 @@
 package swagger
 
 import (
+	"encoding/json"
 	"net/http"
 )
 
@@ -27,6 +28,17 @@ func DeleteLogsById(w http.ResponseWriter, r *http.Request) {
 func GetLogsById(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
+	type ViewData struct {
+		Id string
+	}
+	data := ViewData{
+		Id: r.URL.Query().Get("id"),
+	}
+	IdJson, err := json.Marshal(data)
+	if err != nil {
+		panic(err)
+	}
+	w.Write(IdJson)
 }
 
 func PostLogs(w http.ResponseWriter, r *http.Request) {
