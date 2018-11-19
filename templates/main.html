@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        function SendDelete() {
+            return fetch('http://localhost:8080/None368/Acronis/1.0.0/all', {
+                method: 'delete'
+            })
+                    .then(response => response.json());
+        }
+
+        function SendGet() {
+            return fetch('http://localhost:8080/None368/Acronis/1.0.0/all', {
+                method: 'get'
+            })
+                    .then(response => response.json());
+        }
+
+        function SendGetLogsId() {
+            return fetch('http://localhost:8080/None368/Acronis/1.0.0/logs' + '/?id=' + document.forms["GetLogsById"]["id"].value, {
+                method: 'get'
+            })
+                    .then(response => response.json());
+        }
+    </script>
+</head>
+<body>
+<h1>ALL</h1>
+
+<h3>/all DELETE</h3>
+<button onclick="SendDelete()">Delete all</button>
+
+<h3>/all GET</h3>
+<button onclick="SendGet()">Get All</button>
+
+<h1>LOGS</h1>
+
+<h3>/logs/id GET</h3>
+<form name="GetLogsById">
+    <input type="number" name="id">
+</form>
+<button onclick="SendGetLogsId()">Get Logs By Id</button>
+</body>
+</html>
