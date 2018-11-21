@@ -1,19 +1,19 @@
 {
   "swagger" : "2.0",
   "info" : {
-    "description" : "This is API for cloud-based microservice",
+    "description" : "This is API for cloud-based microservices",
     "version" : "1.0.0",
-    "title" : "Simple Inventory API",
+    "title" : "Acronis API",
     "contact" : {
-      "email" : "newmail@mail.com"
+      "email" : "alexey.ryabichev@gmail.com"
     },
     "license" : {
       "name" : "Apache 2.0",
       "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "host" : "virtserver.swaggerhub.com",
-  "basePath" : "/None368/Acronis/1.0.0",
+  "host" : "46.101.233.72",
+  "basePath" : "/",
   "tags" : [ {
     "name" : "All",
     "description" : "commands for all docs"

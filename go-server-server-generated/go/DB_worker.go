@@ -126,9 +126,9 @@ func put(text string, fileType string) {
 
 	//TODO: Make it relative
 	if fileType == LOGS {
-		path = "C:\\Code\\AcronisStuff\\go-server-server-generated\\files\\logs\\" + strconv.Itoa(int(id.Counter())) + ".log"
+		path = "\\home\\files\\logs\\" + strconv.Itoa(int(id.Counter())) + ".log"
 	} else {
-		path = "C:\\Code\\AcronisStuff\\go-server-server-generated\\files\\metrics\\" + strconv.Itoa(int(id.Counter())) + ".json"
+		path = "\\home\\files\\metrics\\" + strconv.Itoa(int(id.Counter())) + ".json"
 	}
 
 	f, err := os.Create(path)
