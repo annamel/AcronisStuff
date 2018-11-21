@@ -45,11 +45,11 @@ func GetMetricById(w http.ResponseWriter, r *http.Request) {
 	}
 
 	type Response struct {
-		Id string
+		Id   string
 		Text string
 	}
 	responseRaw := Response{
-		Id: data.Id,
+		Id:   data.Id,
 		Text: get(data.Id, METRICS),
 	}
 
@@ -59,8 +59,8 @@ func GetMetricById(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Write(response)
 
-
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
 }
 
 func PostMetric(w http.ResponseWriter, r *http.Request) {
@@ -68,7 +68,7 @@ func PostMetric(w http.ResponseWriter, r *http.Request) {
 
 	body, err := ioutil.ReadAll(r.Body)
 
-	if err != nil{
+	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
