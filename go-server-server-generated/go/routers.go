@@ -54,7 +54,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		GetAll:      "/all GET",
 		GetLogsById: "/logs/id GET",
 	}
-	tmpl, _ := template.ParseFiles("templates/main.html")
+	tmpl, _ := template.ParseFiles("../templates/main.html")
 	tmpl.Execute(w, data)
 }
 
@@ -62,77 +62,77 @@ var routes = Routes{
 	Route{
 		"Index",
 		"GET",
-		"/None368/Acronis/1.0.0/",
+		"/",
 		Index,
 	},
 
 	Route{
 		"DeleteAll",
 		strings.ToUpper("Delete"),
-		"/None368/Acronis/1.0.0/all",
+		"/all",
 		DeleteAll,
 	},
 
 	Route{
 		"GetAllInfo",
 		strings.ToUpper("Get"),
-		"/None368/Acronis/1.0.0/all",
+		"/all",
 		GetAllInfo,
 	},
 
 	Route{
 		"DeleteAllLogs",
 		strings.ToUpper("Delete"),
-		"/None368/Acronis/1.0.0/logs/deleteAll",
+		"/logs/deleteAll",
 		DeleteAllLogs,
 	},
 
 	Route{
 		"DeleteLogsById",
 		strings.ToUpper("Delete"),
-		"/None368/Acronis/1.0.0/logs",
+		"/logs",
 		DeleteLogsById,
 	},
 
 	Route{
 		"GetLogsById",
 		strings.ToUpper("Get"),
-		"/None368/Acronis/1.0.0/logs",
+		"/logs",
 		GetLogsById,
 	},
 
 	Route{
 		"PostLogs",
 		strings.ToUpper("Post"),
-		"/None368/Acronis/1.0.0/logs",
+		"/logs",
 		PostLogs,
 	},
 
 	Route{
 		"DeleteAllMetrics",
 		strings.ToUpper("Delete"),
-		"/None368/Acronis/1.0.0/metrics/deleteAll",
+		"/metrics/deleteAll",
 		DeleteAllMetrics,
 	},
 
 	Route{
 		"DeleteMetricById",
 		strings.ToUpper("Delete"),
-		"/None368/Acronis/1.0.0/metrics",
+		"/metrics",
 		DeleteMetricById,
 	},
 
 	Route{
 		"GetMetricById",
 		strings.ToUpper("Get"),
-		"/None368/Acronis/1.0.0/metrics",
+		"/metrics",
 		GetMetricById,
 	},
 
 	Route{
 		"PostMetric",
 		strings.ToUpper("Post"),
-		"/None368/Acronis/1.0.0/metrics",
+		"/metrics",
 		PostMetric,
 	},
 }

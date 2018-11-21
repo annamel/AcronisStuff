@@ -16,10 +16,9 @@ import (
 )
 
 func DeleteAll(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	deleteAll(LOGS)
 	deleteAll(METRICS)
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
 	type ViewData struct {
 		Status string
 	}
@@ -31,15 +30,17 @@ func DeleteAll(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 	w.Write(StatusJson)
+	w.WriteHeader(http.StatusOK)
 }
 
 func GetAllInfo(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	type Response struct {
-		Logs string
+		Logs    string
 		Metrics string
 	}
 	responseRaw := Response{
-		Logs: getAll(LOGS),
+		Logs:    getAll(LOGS),
 		Metrics: getAll(METRICS),
 	}
 
@@ -48,9 +49,5 @@ func GetAllInfo(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 	w.Write(response)
-
-
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	//w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	//w.WriteHeader(http.StatusOK)
+	w.WriteHeader(http.StatusOK)
 }
