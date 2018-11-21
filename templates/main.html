@@ -66,6 +66,24 @@
             })
                     .then(response => response.json());
         }
+
+        function SendPostLogs(){
+            var reader = new FileReader();
+            var file = document.getElementById('postlogs');
+            return fetch('http://localhost:8080/None368/Acronis/1.0.0/logs', {
+                method: 'post',
+                body: reader.readAsBinaryString(file.files[0])
+            })
+        }
+
+        function SendPostMetrics(){
+            var reader = new FileReader();
+            var file = document.getElementById('postmetrics');
+            return fetch('http://localhost:8080/None368/Acronis/1.0.0/metrics', {
+                method: 'post',
+                body: reader.readAsBinaryString(file.files[0])
+            })
+        }
     </script>
 </head>
 <body>
@@ -126,24 +144,20 @@
             <th scope="row">POST</th>
             <td>-</td>
             <td>
-                <form action="http://localhost:8080/None368/Acronis/1.0.0/logs" method="post">
+                <form>
                     <div class="form-group">
-                        <input type="file" name="logs_file">
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" name="Post Logs">
+                        <input type="file" name="logs_file" accept=".log" id="postlogs">
                     </div>
                 </form>
+                <button onclick="SendPostLogs()">Post Logs</button>
             </td>
             <td>
-                <form action="http://localhost:8080/None368/Acronis/1.0.0/metrics" method="post">
+                <form>
                     <div class="form-group">
-                        <input type="file" name="metrics_file">
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" name="Post Metrics">
+                        <input type="file" name="logs_file" accept=".json" id="postmetrics">
                     </div>
                 </form>
+                <button onclick="SendPostMetrics()">Post Logs</button>
             </td>
         </tr>
         <tr>
