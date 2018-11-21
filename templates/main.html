@@ -72,7 +72,7 @@
             var file = document.getElementById('postlogs');
             return fetch('http://138.68.143.218:8080/logs', {
                 method: 'post',
-                body: reader.readAsBinaryString(file.files[0])
+                body: reader.readAsText(file.files[0])
             })
         }
 
@@ -81,7 +81,7 @@
             var file = document.getElementById('postmetrics');
             return fetch('http://138.68.143.218:8080/metrics', {
                 method: 'post',
-                body: reader.readAsBinaryString(file.files[0])
+                body: reader.readAsText(file.files[0])
             })
         }
     </script>
