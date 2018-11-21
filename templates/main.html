@@ -12,56 +12,56 @@
     </style>
     <script>
         function SendDelete() {
-            return fetch('http://localhost:8080/None368/Acronis/1.0.0/all', {
+            return fetch('http://46.101.233.72:8080/all', {
                 method: 'delete'
             })
                     .then(response => response.json());
         }
 
         function SendGet() {
-            return fetch('http://localhost:8080/None368/Acronis/1.0.0/all', {
+            return fetch('http://46.101.233.72:8080/all', {
                 method: 'get'
             })
                     .then(response => response.json());
         }
 
         function SendGetLogsId() {
-            return fetch('http://localhost:8080/None368/Acronis/1.0.0/logs' + '/?id=' + document.forms["GetLogsById"]["id"].value, {
+            return fetch('http://46.101.233.72:8080/logs' + '/?id=' + document.forms["GetLogsById"]["id"].value, {
                 method: 'get'
             })
                     .then(response => response.json());
         }
 
         function SendDeleteLogsId() {
-            return fetch('http://localhost:8080/None368/Acronis/1.0.0/logs' + '/?id=' + document.forms["DeleteLogsById"]["id"].value, {
+            return fetch('http://46.101.233.72:8080/logs' + '/?id=' + document.forms["DeleteLogsById"]["id"].value, {
                 method: 'delete'
             })
                     .then(response => response.json());
         }
 
         function SendDeleteLogs() {
-            return fetch('http://localhost:8080/None368/Acronis/1.0.0/logs/deleteAll', {
+            return fetch('http://46.101.233.72:8080/logs/deleteAll', {
                 method: 'delete'
             })
                     .then(response => response.json());
         }
 
         function SendGetMetricsId() {
-            return fetch('http://localhost:8080/None368/Acronis/1.0.0/metrics' + '/?id=' + document.forms["GetMetricsById"]["id"].value, {
+            return fetch('http://46.101.233.72:8080/metrics' + '/?id=' + document.forms["GetMetricsById"]["id"].value, {
                 method: 'get'
             })
                     .then(response => response.json());
         }
 
         function SendDeleteMetricsId() {
-            return fetch('http://localhost:8080/None368/Acronis/1.0.0/metrics' + '/?id=' + document.forms["DeleteMetricsById"]["id"].value, {
+            return fetch('http://46.101.233.72:8080/metrics' + '/?id=' + document.forms["DeleteMetricsById"]["id"].value, {
                 method: 'delete'
             })
                     .then(response => response.json());
         }
 
         function SendDeleteMetrics() {
-            return fetch('http://localhost:8080/None368/Acronis/1.0.0/metrics/deleteAll', {
+            return fetch('http://46.101.233.72:8080/metrics/deleteAll', {
                 method: 'delete'
             })
                     .then(response => response.json());
@@ -70,7 +70,7 @@
         function SendPostLogs(){
             var reader = new FileReader();
             var file = document.getElementById('postlogs');
-            return fetch('http://localhost:8080/None368/Acronis/1.0.0/logs', {
+            return fetch('http://46.101.233.72:8080/logs', {
                 method: 'post',
                 body: reader.readAsBinaryString(file.files[0])
             })
@@ -79,7 +79,7 @@
         function SendPostMetrics(){
             var reader = new FileReader();
             var file = document.getElementById('postmetrics');
-            return fetch('http://localhost:8080/None368/Acronis/1.0.0/metrics', {
+            return fetch('http://46.101.233.72:8080/metrics', {
                 method: 'post',
                 body: reader.readAsBinaryString(file.files[0])
             })
@@ -157,7 +157,7 @@
                         <input type="file" name="logs_file" accept=".json" id="postmetrics">
                     </div>
                 </form>
-                <button onclick="SendPostMetrics()">Post Logs</button>
+                <button onclick="SendPostMetrics()">Post Metrics</button>
             </td>
         </tr>
         <tr>

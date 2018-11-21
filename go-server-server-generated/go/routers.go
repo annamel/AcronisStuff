@@ -54,7 +54,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		GetAll:      "/all GET",
 		GetLogsById: "/logs/id GET",
 	}
-	tmpl, _ := template.ParseFiles("templates/main.html")
+	tmpl, _ := template.ParseFiles("../templates/main.html")
 	tmpl.Execute(w, data)
 }
 
