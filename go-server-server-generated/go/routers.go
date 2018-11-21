@@ -11,11 +11,10 @@
 package swagger
 
 import (
-	"fmt"
+	"github.com/gorilla/mux"
+	"html/template"
 	"net/http"
 	"strings"
-
-	"github.com/gorilla/mux"
 )
 
 type Route struct {
@@ -45,7 +44,18 @@ func NewRouter() *mux.Router {
 }
 
 func Index(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello World!")
+	type ViewData struct {
+		DelAll      string
+		GetAll      string
+		GetLogsById string
+	}
+	data := ViewData{
+		DelAll:      "/all DELETE",
+		GetAll:      "/all GET",
+		GetLogsById: "/logs/id GET",
+	}
+	tmpl, _ := template.ParseFiles("templates/main.html")
+	tmpl.Execute(w, data)
 }
 
 var routes = Routes{

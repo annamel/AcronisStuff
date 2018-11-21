@@ -20,6 +20,17 @@ func DeleteAll(w http.ResponseWriter, r *http.Request) {
 	deleteAll(METRICS)
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
+	type ViewData struct {
+		Status string
+	}
+	data := ViewData{
+		Status: "OK",
+	}
+	StatusJson, err := json.Marshal(data)
+	if err != nil {
+		panic(err)
+	}
+	w.Write(StatusJson)
 }
 
 func GetAllInfo(w http.ResponseWriter, r *http.Request) {
