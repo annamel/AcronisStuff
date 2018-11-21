@@ -11,15 +11,35 @@
 package swagger
 
 import (
+	"encoding/json"
 	"net/http"
 )
 
 func DeleteAll(w http.ResponseWriter, r *http.Request) {
+	deleteAll(LOGS)
+	deleteAll(METRICS)
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 }
 
 func GetAllInfo(w http.ResponseWriter, r *http.Request) {
+	type Response struct {
+		Logs string
+		Metrics string
+	}
+	responseRaw := Response{
+		Logs: getAll(LOGS),
+		Metrics: getAll(METRICS),
+	}
+
+	response, err := json.Marshal(responseRaw)
+	if err != nil {
+		panic(err)
+	}
+	w.Write(response)
+
+
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
+	//w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	//w.WriteHeader(http.StatusOK)
 }

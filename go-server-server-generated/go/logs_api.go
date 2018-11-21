@@ -11,25 +11,72 @@
 package swagger
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"net/http"
 )
 
 func DeleteAllLogs(w http.ResponseWriter, r *http.Request) {
+	deleteAll(LOGS)
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 }
 
 func DeleteLogsById(w http.ResponseWriter, r *http.Request) {
+	type ViewData struct {
+		Id string
+	}
+	data := ViewData{
+		Id: r.URL.Query().Get("id"),
+	}
+
+	deleteFromDB(data.Id, LOGS)
+
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 }
 
 func GetLogsById(w http.ResponseWriter, r *http.Request) {
+	type ViewData struct {
+		Id string
+	}
+	data := ViewData{
+		Id: r.URL.Query().Get("id"),
+	}
+
+	type Response struct {
+		Id string
+		Text string
+	}
+	responseRaw := Response{
+		Id: data.Id,
+		Text: get(data.Id, LOGS),
+	}
+
+	response, err := json.Marshal(responseRaw)
+	if err != nil {
+		panic(err)
+	}
+	w.Write(response)
+
+
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	//w.WriteHeader(http.StatusOK)
+}
+
+func PostLogs(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
+
+	body, err := ioutil.ReadAll(r.Body)
+
+	if err != nil{
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	put(string(body), LOGS)
+
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 }
 
-func PostLogs(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-}
