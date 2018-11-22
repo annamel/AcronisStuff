@@ -5,7 +5,6 @@ import (
 	"gopkg.in/mgo.v2/bson"
 	"io/ioutil"
 	"os"
-	"strconv"
 )
 
 var (
@@ -15,7 +14,7 @@ var (
 
 type File struct {
 	Id   bson.ObjectId `bson:"_id"`
-	Path string `bson:"path"`
+	Path string        `bson:"path"`
 }
 
 //func setupDB(fileType string) (collection *mgo.Collection){
@@ -29,7 +28,7 @@ type File struct {
 //	return
 //}
 
-func deleteAll(fileType string){
+func deleteAll(fileType string) {
 	session, errDB := mgo.Dial("mongodb://127.0.0.1")
 	defer session.Close()
 
@@ -41,12 +40,12 @@ func deleteAll(fileType string){
 
 	_, err := collection.RemoveAll(bson.M{})
 
-	if err != nil{
+	if err != nil {
 		panic(err)
 	}
 }
 
-func deleteFromDB(id string, fileType string){
+func deleteFromDB(id string, fileType string) {
 	session, errDB := mgo.Dial("mongodb://127.0.0.1")
 	defer session.Close()
 
@@ -58,12 +57,12 @@ func deleteFromDB(id string, fileType string){
 
 	_, err := collection.RemoveAll(bson.M{"_id": bson.ObjectIdHex(id)})
 
-	if err != nil{
+	if err != nil {
 		panic(err)
 	}
 }
 
-func getAll(fileType string) (ids string){
+func getAll(fileType string) (ids string) {
 	session, errDB := mgo.Dial("mongodb://127.0.0.1")
 	defer session.Close()
 
@@ -72,13 +71,13 @@ func getAll(fileType string) (ids string){
 	}
 
 	collection := session.DB("acronisdb").C(fileType)
-	
-	items := []File{}
-	
+
+	var items []File
+
 	collection.Find(bson.M{}).All(&items)
 
 	for _, element := range items {
-		ids += strconv.Itoa(int(element.Id.Counter())) + "\n"
+		ids += element.Id.Hex() + "\n"
 	}
 	return
 }
@@ -102,7 +101,7 @@ func get(id string, fileType string) string {
 
 	text, err := ioutil.ReadFile(path)
 
-	if err != nil{
+	if err != nil {
 		panic(err)
 	}
 
