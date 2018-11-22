@@ -12,59 +12,88 @@
     </style>
     <script>
         function SendDelete() {
-            return fetch('http://localhost:8080/None368/Acronis/1.0.0/all', {
+            return fetch('http://138.68.143.218:8080/all', {
                 method: 'delete'
             })
                     .then(response => response.json());
         }
 
         function SendGet() {
-            return fetch('http://localhost:8080/None368/Acronis/1.0.0/all', {
+            return fetch('http://138.68.143.218:8080/all', {
                 method: 'get'
             })
                     .then(response => response.json());
         }
 
         function SendGetLogsId() {
-            return fetch('http://localhost:8080/None368/Acronis/1.0.0/logs' + '/?id=' + document.forms["GetLogsById"]["id"].value, {
+            return fetch('http://138.68.143.218:8080/logs' + '/?id=' + document.forms["GetLogsById"]["id"].value, {
                 method: 'get'
             })
                     .then(response => response.json());
         }
 
         function SendDeleteLogsId() {
-            return fetch('http://localhost:8080/None368/Acronis/1.0.0/logs' + '/?id=' + document.forms["DeleteLogsById"]["id"].value, {
+            return fetch('http://138.68.143.218:8080/logs' + '/?id=' + document.forms["DeleteLogsById"]["id"].value, {
                 method: 'delete'
             })
                     .then(response => response.json());
         }
 
         function SendDeleteLogs() {
-            return fetch('http://localhost:8080/None368/Acronis/1.0.0/logs/deleteAll', {
+            return fetch('http://138.68.143.218:8080/logs/deleteAll', {
                 method: 'delete'
             })
                     .then(response => response.json());
         }
 
         function SendGetMetricsId() {
-            return fetch('http://localhost:8080/None368/Acronis/1.0.0/metrics' + '/?id=' + document.forms["GetMetricsById"]["id"].value, {
+            return fetch('http://138.68.143.218:8080/metrics' + '/?id=' + document.forms["GetMetricsById"]["id"].value, {
                 method: 'get'
             })
                     .then(response => response.json());
         }
 
         function SendDeleteMetricsId() {
-            return fetch('http://localhost:8080/None368/Acronis/1.0.0/metrics' + '/?id=' + document.forms["DeleteMetricsById"]["id"].value, {
+            return fetch('http://138.68.143.218:8080/metrics' + '/?id=' + document.forms["DeleteMetricsById"]["id"].value, {
                 method: 'delete'
             })
                     .then(response => response.json());
         }
 
         function SendDeleteMetrics() {
-            return fetch('http://localhost:8080/None368/Acronis/1.0.0/metrics/deleteAll', {
+            return fetch('http://138.68.143.218:8080/metrics/deleteAll', {
                 method: 'delete'
             })
                     .then(response => response.json());
+        }
+
+        function SendPostLogs(){
+            var reader = new FileReader();
+            var contents;
+            reader.onload = function (e) {
+                contents = e.target.result;
+                contents.toString();
+            }
+            /*
+            *var r = new FileReader();
+      r.onload = function(e) {
+	      var contents = e.target.result;
+             */
+            var file = document.getElementById('postlogs');
+            return fetch('http://138.68.143.218:8080/logs', {
+                method: 'post',
+                //body: reader.readAsText(file.files[0])
+                body: contents.toString()
+            })
+        }
+
+        function SendPostMetrics(){
+            var reader = new FileReader();
+            var file = document.getElementById('postmetrics');
+            return fetch('http://138.68.143.218:8080/metrics', {
+                method: 'post',
+                body: reader.readAsText(file.files[0])
+            })
         }
     </script>
 </head>
@@ -88,7 +117,7 @@
             <td>
                 <form name="GetLogsById">
                     <div class="form-group">
-                        <input type="number" name="id">
+                        <input type="text" name="id">
                     </div>
                 </form>
                 <button onclick="SendGetLogsId()">Get Logs By Id</button>
@@ -96,7 +125,7 @@
             <td>
                 <form name="GetMetricsById">
                     <div class="form-group">
-                        <input type="number" name="id">
+                        <input type="text" name="id">
                     </div>
                 </form>
                 <button onclick="SendGetMetricsId()">Get Metrics By Id</button>
@@ -108,7 +137,7 @@
             <td>
                 <form name="DeleteLogsById">
                     <div class="form-group">
-                        <input type="number" name="id">
+                        <input type="text" name="id">
                     </div>
                 </form>
                 <button onclick="SendDeleteLogsId()">Delete Logs By Id</button>
@@ -116,7 +145,7 @@
             <td>
                 <form name="DeleteMetricsById">
                     <div class="form-group">
-                        <input type="number" name="id">
+                        <input type="text" name="id">
                     </div>
                 </form>
                 <button onclick="SendDeleteMetricsId()">Delete Metrics By Id</button>
@@ -126,24 +155,20 @@
             <th scope="row">POST</th>
             <td>-</td>
             <td>
-                <form action="http://localhost:8080/None368/Acronis/1.0.0/logs" method="post">
+                <form>
                     <div class="form-group">
-                        <input type="file" name="logs_file">
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" name="Post Logs">
+                        <input type="file" name="logs_file" accept=".log" id="postlogs">
                     </div>
                 </form>
+                <button onclick="SendPostLogs()">Post Logs</button>
             </td>
             <td>
-                <form action="http://localhost:8080/None368/Acronis/1.0.0/metrics" method="post">
+                <form>
                     <div class="form-group">
-                        <input type="file" name="metrics_file">
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" name="Post Metrics">
+                        <input type="file" name="logs_file" accept=".json" id="postmetrics">
                     </div>
                 </form>
+                <button onclick="SendPostMetrics()">Post Metrics</button>
             </td>
         </tr>
         <tr>

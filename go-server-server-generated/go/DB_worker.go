@@ -126,9 +126,9 @@ func put(text string, fileType string) {
 
 	//TODO: Make it relative
 	if fileType == LOGS {
-		path = "\\home\\files\\logs\\" + strconv.Itoa(int(id.Counter())) + ".log"
+		path = "/home/files/logs/" + id.Hex() + ".log"
 	} else {
-		path = "\\home\\files\\metrics\\" + strconv.Itoa(int(id.Counter())) + ".json"
+		path = "/home/files/metrics/" + id.Hex() + ".json"
 	}
 
 	f, err := os.Create(path)
