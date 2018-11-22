@@ -19,49 +19,49 @@
         }
 
         function SendGet() {
-            return fetch('http://138.68.143.218:8080/all', {
+            return fetch('http://46.101.42.27:8080/all', {
                 method: 'get'
             })
                     .then(response => response.json());
         }
 
         function SendGetLogsId() {
-            return fetch('http://138.68.143.218:8080/logs' + '/?id=' + document.forms["GetLogsById"]["id"].value, {
+            return fetch('http://46.101.42.27:8080/logs' + '/?id=' + document.forms["GetLogsById"]["id"].value, {
                 method: 'get'
             })
                     .then(response => response.json());
         }
 
         function SendDeleteLogsId() {
-            return fetch('http://138.68.143.218:8080/logs' + '/?id=' + document.forms["DeleteLogsById"]["id"].value, {
+            return fetch('http://46.101.42.27:8080/logs' + '/?id=' + document.forms["DeleteLogsById"]["id"].value, {
                 method: 'delete'
             })
                     .then(response => response.json());
         }
 
         function SendDeleteLogs() {
-            return fetch('http://138.68.143.218:8080/logs/deleteAll', {
+            return fetch('http://46.101.42.27:8080/logs/deleteAll', {
                 method: 'delete'
             })
                     .then(response => response.json());
         }
 
         function SendGetMetricsId() {
-            return fetch('http://138.68.143.218:8080/metrics' + '/?id=' + document.forms["GetMetricsById"]["id"].value, {
+            return fetch('http://46.101.42.27:8080/metrics' + '/?id=' + document.forms["GetMetricsById"]["id"].value, {
                 method: 'get'
             })
                     .then(response => response.json());
         }
 
         function SendDeleteMetricsId() {
-            return fetch('http://138.68.143.218:8080/metrics' + '/?id=' + document.forms["DeleteMetricsById"]["id"].value, {
+            return fetch('http://46.101.42.27:8080/metrics' + '/?id=' + document.forms["DeleteMetricsById"]["id"].value, {
                 method: 'delete'
             })
                     .then(response => response.json());
         }
 
         function SendDeleteMetrics() {
-            return fetch('http://138.68.143.218:8080/metrics/deleteAll', {
+            return fetch('http://46.101.42.27:8080/metrics/deleteAll', {
                 method: 'delete'
             })
                     .then(response => response.json());
@@ -73,7 +73,7 @@
             reader.onload = function (event) {
                 var contents = event.target.result;
                 data.append('file', contents);
-                fetch('http://138.68.143.218:8080/logs', {
+                fetch('http://46.101.42.27:8080/logs', {
                     method: 'post',
                     body: data
                 })
@@ -87,7 +87,7 @@
             reader.onload = function (event) {
                 var contents = event.target.result;
                 data.append('file', contents);
-                fetch('http://138.68.143.218:8080/metrics', {
+                fetch('http://46.101.42.27:8080/metrics', {
                     method: 'post',
                     body: data
                 })
