@@ -5,6 +5,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 	"io/ioutil"
 	"os"
+	"strings"
 )
 
 var (
@@ -134,6 +135,17 @@ func put(text string, fileType string) {
 
 	if err != nil {
 		panic(err)
+	}
+
+	texts := strings.Split(text, "\n")
+
+	text = ""
+
+	for index, element := range texts{
+		if index == 0 || index == 1 || index == 2 || index == len(texts) - 1 {
+			continue
+		}
+		text += element + "\n"
 	}
 
 	f.WriteString(text)
