@@ -15,10 +15,6 @@
                 method: 'get'
             })
                     .then(function (response) {
-                        // var div = document.createElement("div");
-                        // div.setAttribute("id", "reload");
-                        // document.body.appendChild(div);
-                        //div.innerHTML = JSON.stringify(response.json());
                         return response.text();
 
                     })
@@ -34,7 +30,16 @@
             return fetch('http://46.101.42.27:8080/logs' + '/?id=' + document.forms["GetLogsById"]["id"].value, {
                 method: 'get'
             })
-                    .then(response => response.json());
+                    .then(function (response) {
+                        return response.text();
+
+                    })
+                    .then(function (text) {
+                        var div = document.createElement("div");
+                        div.setAttribute("id", "reload");
+                        document.body.appendChild(div);
+                        div.innerHTML = text;
+                    })
         }
 
         function SendDeleteLogsId() {
@@ -55,7 +60,16 @@
             return fetch('http://46.101.42.27:8080/metrics' + '/?id=' + document.forms["GetMetricsById"]["id"].value, {
                 method: 'get'
             })
-                    .then(response => response.json());
+                    .then(function (response) {
+                        return response.text();
+
+                    })
+                    .then(function (text) {
+                        var div = document.createElement("div");
+                        div.setAttribute("id", "reload");
+                        document.body.appendChild(div);
+                        div.innerHTML = text;
+                    })
         }
 
         function SendDeleteMetricsId() {
