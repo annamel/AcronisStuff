@@ -19,49 +19,49 @@
         }
 
         function SendGet() {
-            return fetch('http://138.68.143.218:8080/all', {
+            return fetch('http://46.101.42.27:8080/all', {
                 method: 'get'
             })
                     .then(response => response.json());
         }
 
         function SendGetLogsId() {
-            return fetch('http://138.68.143.218:8080/logs' + '/?id=' + document.forms["GetLogsById"]["id"].value, {
+            return fetch('http://46.101.42.27:8080/logs' + '/?id=' + document.forms["GetLogsById"]["id"].value, {
                 method: 'get'
             })
                     .then(response => response.json());
         }
 
         function SendDeleteLogsId() {
-            return fetch('http://138.68.143.218:8080/logs' + '/?id=' + document.forms["DeleteLogsById"]["id"].value, {
+            return fetch('http://46.101.42.27:8080/logs' + '/?id=' + document.forms["DeleteLogsById"]["id"].value, {
                 method: 'delete'
             })
                     .then(response => response.json());
         }
 
         function SendDeleteLogs() {
-            return fetch('http://138.68.143.218:8080/logs/deleteAll', {
+            return fetch('http://46.101.42.27:8080/logs/deleteAll', {
                 method: 'delete'
             })
                     .then(response => response.json());
         }
 
         function SendGetMetricsId() {
-            return fetch('http://138.68.143.218:8080/metrics' + '/?id=' + document.forms["GetMetricsById"]["id"].value, {
+            return fetch('http://46.101.42.27:8080/metrics' + '/?id=' + document.forms["GetMetricsById"]["id"].value, {
                 method: 'get'
             })
                     .then(response => response.json());
         }
 
         function SendDeleteMetricsId() {
-            return fetch('http://138.68.143.218:8080/metrics' + '/?id=' + document.forms["DeleteMetricsById"]["id"].value, {
+            return fetch('http://46.101.42.27:8080/metrics' + '/?id=' + document.forms["DeleteMetricsById"]["id"].value, {
                 method: 'delete'
             })
                     .then(response => response.json());
         }
 
         function SendDeleteMetrics() {
-            return fetch('http://138.68.143.218:8080/metrics/deleteAll', {
+            return fetch('http://46.101.42.27:8080/metrics/deleteAll', {
                 method: 'delete'
             })
                     .then(response => response.json());
@@ -69,31 +69,30 @@
 
         function SendPostLogs(){
             var reader = new FileReader();
-            var contents;
-            reader.onload = function (e) {
-                contents = e.target.result;
-                contents.toString();
-            }
-            /*
-            *var r = new FileReader();
-      r.onload = function(e) {
-	      var contents = e.target.result;
-             */
-            var file = document.getElementById('postlogs');
-            return fetch('http://138.68.143.218:8080/logs', {
-                method: 'post',
-                //body: reader.readAsText(file.files[0])
-                body: contents.toString()
-            })
+            var data = new FormData();
+            reader.onload = function (event) {
+                var contents = event.target.result;
+                data.append('file', contents);
+                fetch('http://46.101.42.27:8080/logs', {
+                    method: 'post',
+                    body: data
+                })
+            };
+            reader.readAsText(document.getElementById('postlogs').files[0])
         }
 
         function SendPostMetrics(){
             var reader = new FileReader();
-            var file = document.getElementById('postmetrics');
-            return fetch('http://138.68.143.218:8080/metrics', {
-                method: 'post',
-                body: reader.readAsText(file.files[0])
-            })
+            var data = new FormData();
+            reader.onload = function (event) {
+                var contents = event.target.result;
+                data.append('file', contents);
+                fetch('http://46.101.42.27:8080/metrics', {
+                    method: 'post',
+                    body: data
+                })
+            };
+            reader.readAsText(document.getElementById('postmetrics').files[0])
         }
     </script>
 </head>
