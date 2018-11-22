@@ -15,12 +15,19 @@
                 method: 'get'
             })
                     .then(function (response) {
+                        // var div = document.createElement("div");
+                        // div.setAttribute("id", "reload");
+                        // document.body.appendChild(div);
+                        //div.innerHTML = JSON.stringify(response.json());
+                        return response.text();
+
+                    })
+                    .then(function (text) {
                         var div = document.createElement("div");
                         div.setAttribute("id", "reload");
                         document.body.appendChild(div);
-                        div.innerHTML = JSON.stringify(response.json());
-
-                    });
+                        div.innerHTML = text;
+                    })
         }
 
         function SendGetLogsId() {
