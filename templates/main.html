@@ -72,11 +72,7 @@
             var data = new FormData();
             reader.onload = function (event) {
                 var contents = event.target.result;
-                var array = contents.split('\n');
-                var removed1 = array.splice(0, 2);
-                var removed2 = array.splice(array.length - 1, 1);
-                var res = array.join('\n');
-                data.append('file', res);
+                data.append('file', contents);
                 fetch('http://46.101.42.27:8080/logs', {
                     method: 'post',
                     body: data
@@ -90,7 +86,6 @@
             var data = new FormData();
             reader.onload = function (event) {
                 var contents = event.target.result;
-                console.log(contents);
                 data.append('file', contents);
                 fetch('http://46.101.42.27:8080/metrics', {
                     method: 'post',
