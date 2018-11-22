@@ -18,8 +18,7 @@
                         var div = document.createElement("div");
                         div.setAttribute("id", "reload");
                         document.body.appendChild(div);
-                        var json = JSON.parse(response => response.json())
-                        div.innerHTML = json;
+                        div.innerHTML = response.json();
 
                     });
         }
