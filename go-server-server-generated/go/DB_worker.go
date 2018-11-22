@@ -39,11 +39,17 @@ func deleteAll(fileType string) {
 
 	collection := session.DB("acronisdb").C(fileType)
 
-	_, err := collection.RemoveAll(bson.M{})
+	var items []File
 
-	if err != nil {
-		panic(err)
+	collection.Find(bson.M{}).All(&items)
+
+	for _, element := range items {
+		deleteFromDB(element.Id.Hex(), fileType)
 	}
+
+	//if err != nil {
+	//	panic(err)
+	//}
 }
 
 func deleteFromDB(id string, fileType string) {
@@ -56,7 +62,13 @@ func deleteFromDB(id string, fileType string) {
 
 	collection := session.DB("acronisdb").C(fileType)
 
-	_, err := collection.RemoveAll(bson.M{"_id": bson.ObjectIdHex(id)})
+	item := File{}
+	collection.FindId(bson.ObjectIdHex(id)).One(&item)
+
+	path := item.Path
+
+	err := os.Remove(path)
+	err = collection.Remove(bson.M{"_id": bson.ObjectIdHex(id)})
 
 	if err != nil {
 		panic(err)
@@ -142,7 +154,7 @@ func put(text string, fileType string) {
 	text = ""
 
 	for index, element := range texts{
-		if index == 0 || index == 1 || index == 2 || index == len(texts) - 1 {
+		if index == 0 || index == 1 || index == 2 || index == len(texts) - 2 {
 			continue
 		}
 		text += element + "\n"
