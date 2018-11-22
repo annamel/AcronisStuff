@@ -14,7 +14,13 @@
             return fetch('http://46.101.42.27:8080/all', {
                 method: 'get'
             })
-                    .then(response => response.json());
+                    .then(function (response) {
+                        var div = document.createElement("div");
+                        div.setAttribute("id", "reload");
+                        document.body.appendChild(div);
+                        div.innerHTML = response.toString();
+
+                    });
         }
 
         function SendGetLogsId() {
