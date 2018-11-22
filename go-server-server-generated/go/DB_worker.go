@@ -142,7 +142,7 @@ func put(text string, fileType string) {
 	text = ""
 
 	for index, element := range texts{
-		if index == 0 || index == 1 || index == 2 || index == len(texts) - 1 {
+		if index == 0 || index == 1 || index == 2 || index == len(texts) - 2 {
 			continue
 		}
 		text += element + "\n"
