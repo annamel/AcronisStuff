@@ -125,9 +125,9 @@ func put(text string, fileType string) {
 
 	//TODO: Make it relative
 	if fileType == LOGS {
-		path = "\\home\\files\\logs\\" + id.Hex() + ".log"
+		path = "/home/files/logs/" + id.Hex() + ".log"
 	} else {
-		path = "\\home\\files\\metrics\\" + id.Hex() + ".json"
+		path = "/home/files/metrics/" + id.Hex() + ".json"
 	}
 
 	f, err := os.Create(path)
