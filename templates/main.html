@@ -18,7 +18,8 @@
                         var div = document.createElement("div");
                         div.setAttribute("id", "reload");
                         document.body.appendChild(div);
-                        div.innerHTML = response.toString();
+                        var json = JSON.parse(response => response.json())
+                        div.innerHTML = json;
 
                     });
         }
