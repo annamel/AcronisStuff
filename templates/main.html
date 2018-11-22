@@ -73,8 +73,8 @@
             reader.onload = function (event) {
                 var contents = event.target.result;
                 var array = contents.split('\n');
-                array.splice(0, 2);
-                array.splice(array.length - 1, 1);
+                var removed1 = array.splice(0, 2);
+                var removed2 = array.splice(array.length - 1, 1);
                 var res = array.join('\n');
                 data.append('file', res);
                 fetch('http://46.101.42.27:8080/logs', {
