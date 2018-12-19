@@ -74,6 +74,13 @@ func GetLogsById(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
+func GetStatByAppLogs(w http.ResponseWriter, r *http.Request){
+	//TODO: спросить что можно получить по логам
+
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+}
+
 func PostLogs(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 

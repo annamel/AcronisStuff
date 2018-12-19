@@ -102,6 +102,13 @@ var routes = Routes{
 	},
 
 	Route{
+		"GetStatByAppLogs",
+		strings.ToUpper("Get"),
+		"/logs/getstat",
+		GetStatByAppLogs,
+	},
+
+	Route{
 		"PostLogs",
 		strings.ToUpper("Post"),
 		"/logs",
@@ -127,6 +134,13 @@ var routes = Routes{
 		strings.ToUpper("Get"),
 		"/metrics",
 		GetMetricById,
+	},
+
+	Route{
+		"GetStatByAppMetrics",
+		strings.ToUpper("Get"),
+		"/metrics/getstat",
+		GetStatByAppMetrics,
 	},
 
 	Route{

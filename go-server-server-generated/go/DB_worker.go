@@ -54,6 +54,23 @@ func deleteAll(fileType string) {
 	//}
 }
 
+func getstat(app string, fileType string) []File{
+	session, errDB := mgo.Dial("mongodb://127.0.0.1")
+	defer session.Close()
+
+	if errDB != nil {
+		panic(errDB)
+	}
+
+	collection := session.DB("acronisdb").C(fileType)
+
+	var items []File
+
+	collection.Find(bson.M{"app_id": app}).All(&items)
+
+	return items
+}
+
 func deleteFromDB(id string, fileType string) {
 	session, errDB := mgo.Dial("mongodb://127.0.0.1")
 	defer session.Close()

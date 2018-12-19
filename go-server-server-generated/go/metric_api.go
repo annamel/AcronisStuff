@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
+	"regexp"
+	"strconv"
+	"strings"
 )
 
 func DeleteAllMetrics(w http.ResponseWriter, r *http.Request) {
@@ -70,6 +73,52 @@ func GetMetricById(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Write(response)
 
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+}
+
+func GetStatByAppMetrics(w http.ResponseWriter, r *http.Request){
+	type ViewData struct {
+		Id string
+	}
+	data := ViewData{
+		Id: r.URL.Query().Get("id"),
+	}
+
+	type Response struct {
+		Sample_mean int
+	}
+
+	tmp := getstat(data.Id, METRICS)
+
+	sum := 0
+	count := 0
+	reg, _ := regexp.Compile(":\\s\\d+.*\\d*")
+
+	for _, item := range tmp{
+		temp := strings.Split(item.Path, "\n")
+
+		for _, itemm := range temp{
+			if reg.MatchString(itemm){
+				s, _ := strconv.Atoi(reg.FindString(itemm))
+				sum += s
+				count++
+			}
+		}
+	}
+
+	if count != 0{
+		sum = sum/count
+	}
+
+	responseRaw := Response{
+		Sample_mean: sum,
+	}
+	response, err := json.Marshal(responseRaw)
+	if err != nil {
+		panic(err)
+	}
+	w.Write(response)
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 }
