@@ -91,13 +91,18 @@ func GetStatByAppMetrics(w http.ResponseWriter, r *http.Request){
 
 	tmp := getstat(data.Id, METRICS)
 
+
 	sum := 0
 	count := 0
 	reg, _ := regexp.Compile(":\\s\\d+.*\\d*")
 	regg, _ := regexp.Compile("\\w+:\\s\\d+.*\\d*")
 
 	for _, item := range tmp{
-		temp := strings.Split(item.Path, "\n")
+		text, err1 := ioutil.ReadFile(item.Path)
+		if err1 != nil {
+			panic(err1)
+		}
+		temp := strings.Split(string(text), "\n")
 
 		for _, itemm := range temp{
 			if regg.MatchString(itemm){
