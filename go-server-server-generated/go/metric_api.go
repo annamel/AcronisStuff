@@ -94,12 +94,13 @@ func GetStatByAppMetrics(w http.ResponseWriter, r *http.Request){
 	sum := 0
 	count := 0
 	reg, _ := regexp.Compile(":\\s\\d+.*\\d*")
+	regg, _ := regexp.Compile("\\w+:\\s\\d+.*\\d*")
 
 	for _, item := range tmp{
 		temp := strings.Split(item.Path, "\n")
 
 		for _, itemm := range temp{
-			if reg.MatchString(itemm){
+			if regg.MatchString(itemm){
 				s, _ := strconv.Atoi(reg.FindString(itemm))
 				sum += s
 				count++
