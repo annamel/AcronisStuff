@@ -152,9 +152,11 @@ func put(text string, fileType string) {
 	for index, element := range texts{
 		if index == 0 {
 			user, _ = strconv.Atoi(element)
+			continue
 		}
 		if index == 1 {
 			app = element
+			continue
 		}
 		text += element + "\n"
 	}

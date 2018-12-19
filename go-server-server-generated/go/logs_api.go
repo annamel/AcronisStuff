@@ -58,7 +58,7 @@ func GetLogsById(w http.ResponseWriter, r *http.Request) {
 	}
 
 	responseRaw := Response{
-		Id:   string(tmp.Id),
+		Id:   data.Id,
 		User: tmp.UserId,
 		App: tmp.AppId,
 		Text: string(text),
