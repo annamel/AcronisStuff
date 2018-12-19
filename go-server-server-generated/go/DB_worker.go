@@ -3,8 +3,8 @@ package swagger
 import (
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
-	"io/ioutil"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -14,8 +14,10 @@ var (
 )
 
 type File struct {
-	Id   bson.ObjectId `bson:"_id"`
-	Path string        `bson:"path"`
+	Id     bson.ObjectId `bson:"_id"`
+	UserId int           `bson:"user_id"`
+	AppId  string        `bson:"app_id"`
+	Path   string        `bson:"path"`
 }
 
 //func setupDB(fileType string) (collection *mgo.Collection){
@@ -83,7 +85,7 @@ func getAll(fileType string) (ids string) {
 	return
 }
 
-func get(id string, fileType string) string {
+func get(id string, fileType string) File {
 	session, errDB := mgo.Dial("mongodb://127.0.0.1")
 	defer session.Close()
 
@@ -98,15 +100,7 @@ func get(id string, fileType string) string {
 	item := File{}
 	collection.FindId(bson.ObjectIdHex(id)).One(&item)
 
-	path := item.Path
-
-	text, err := ioutil.ReadFile(path)
-
-	if err != nil {
-		panic(err)
-	}
-
-	return string(text)
+	return item
 
 }
 
@@ -123,6 +117,8 @@ func put(text string, fileType string) {
 	id := bson.NewObjectId()
 
 	path := ""
+	user := 0
+	app := ""
 
 	//TODO: Make it relative
 	if fileType == LOGS {
@@ -142,8 +138,11 @@ func put(text string, fileType string) {
 	text = ""
 
 	for index, element := range texts{
-		if index == 0 || index == 1 || index == 2 || index == len(texts) - 1 {
-			continue
+		if index == 0 {
+			user, _ = strconv.Atoi(element)
+		}
+		if index == 1 {
+			app = element
 		}
 		text += element + "\n"
 	}
@@ -152,5 +151,5 @@ func put(text string, fileType string) {
 
 	defer f.Close()
 
-	collection.Insert(&File{Id: id, Path: path})
+	collection.Insert(&File{Id: id, UserId: user, AppId: app, Path: path})
 }

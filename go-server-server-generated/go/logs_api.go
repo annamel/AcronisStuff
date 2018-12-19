@@ -46,16 +46,27 @@ func GetLogsById(w http.ResponseWriter, r *http.Request) {
 
 	type Response struct {
 		Id   string
+		User int
+		App string
 		Text string
 	}
-	responseRaw := Response{
-		Id:   data.Id,
-		Text: get(data.Id, LOGS),
+
+	tmp := get(data.Id, LOGS)
+	text, err1 := ioutil.ReadFile(tmp.Path)
+	if err1 != nil {
+		panic(err1)
 	}
 
-	response, err := json.Marshal(responseRaw)
-	if err != nil {
-		panic(err)
+	responseRaw := Response{
+		Id:   string(tmp.Id),
+		User: tmp.UserId,
+		App: tmp.AppId,
+		Text: string(text),
+	}
+
+	response, err2 := json.Marshal(responseRaw)
+	if err2 != nil {
+		panic(err2)
 	}
 	w.Write(response)
 
