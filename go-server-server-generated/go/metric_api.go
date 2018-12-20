@@ -94,7 +94,7 @@ func GetStatByAppMetrics(w http.ResponseWriter, r *http.Request){
 
 	sum := 0
 	count := 0
-	reg, _ := regexp.Compile(":\\s\\d+.*\\d*")
+	reg, _ := regexp.Compile("\\d+.*\\d*")
 	regg, _ := regexp.Compile("\\w+:\\s\\d+.*\\d*")
 
 	for _, item := range tmp{
@@ -105,9 +105,7 @@ func GetStatByAppMetrics(w http.ResponseWriter, r *http.Request){
 		temp := strings.Split(string(text), "\n")
 
 		for _, itemm := range temp{
-			sum = 105 //убрать
 			if regg.MatchString(itemm){
-				//sum = 101 //убрать
 				s, _ := strconv.Atoi(reg.FindString(itemm))
 				sum += s
 				count++
@@ -116,11 +114,7 @@ func GetStatByAppMetrics(w http.ResponseWriter, r *http.Request){
 	}
 
 	if count != 0{
-		sum = sum/count //убрать
-	}
-
-	if len(tmp) == 0{ //убрать
-		sum = 100
+		sum = sum/count
 	}
 
 	responseRaw := Response{
