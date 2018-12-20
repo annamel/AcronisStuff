@@ -106,7 +106,7 @@ func GetStatByAppMetrics(w http.ResponseWriter, r *http.Request){
 
 		for _, itemm := range temp{
 			if regg.MatchString(itemm){
-				d := reg.FindString(itemm)[1:2]
+				d := reg.FindString(itemm)[1:len(reg.FindString(itemm))]
 				s, _ := strconv.Atoi(d)
 				sum += s
 				count++
