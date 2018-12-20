@@ -46,18 +46,36 @@ func GetLogsById(w http.ResponseWriter, r *http.Request) {
 
 	type Response struct {
 		Id   string
+		User int
+		App string
 		Text string
 	}
-	responseRaw := Response{
-		Id:   data.Id,
-		Text: get(data.Id, LOGS),
+
+	tmp := get(data.Id, LOGS)
+	text, err1 := ioutil.ReadFile(tmp.Path)
+	if err1 != nil {
+		panic(err1)
 	}
 
-	response, err := json.Marshal(responseRaw)
-	if err != nil {
-		panic(err)
+	responseRaw := Response{
+		Id:   data.Id,
+		User: tmp.UserId,
+		App: tmp.AppId,
+		Text: string(text),
+	}
+
+	response, err2 := json.Marshal(responseRaw)
+	if err2 != nil {
+		panic(err2)
 	}
 	w.Write(response)
+
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+}
+
+func GetStatByAppLogs(w http.ResponseWriter, r *http.Request){
+	//TODO: спросить что можно получить по логам
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)

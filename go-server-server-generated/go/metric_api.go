@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
+	"regexp"
+	"strconv"
+	"strings"
 )
 
 func DeleteAllMetrics(w http.ResponseWriter, r *http.Request) {
@@ -46,19 +49,83 @@ func GetMetricById(w http.ResponseWriter, r *http.Request) {
 
 	type Response struct {
 		Id   string
+		User int
+		App string
 		Text string
 	}
-	responseRaw := Response{
-		Id:   data.Id,
-		Text: get(data.Id, METRICS),
+
+	tmp := get(data.Id, METRICS)
+	text, err1 := ioutil.ReadFile(tmp.Path)
+	if err1 != nil {
+		panic(err1)
 	}
 
+	responseRaw := Response{
+		Id:   data.Id,
+		User: tmp.UserId,
+		App: tmp.AppId,
+		Text: string(text),
+	}
+
+	response, err2 := json.Marshal(responseRaw)
+	if err2 != nil {
+		panic(err2)
+	}
+	w.Write(response)
+
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+}
+
+func GetStatByAppMetrics(w http.ResponseWriter, r *http.Request){
+	type ViewData struct {
+		Id string
+	}
+	data := ViewData{
+		Id: r.URL.Query().Get("id"),
+	}
+
+	type Response struct {
+		Sample_mean int
+	}
+
+	tmp := getstat(data.Id, METRICS)
+
+
+	sum := 0
+	count := 0
+	reg, _ := regexp.Compile("\\s\\d+.*\\d*")
+	regg, _ := regexp.Compile("\\w+:\\s\\d+.*\\d*")
+
+	for _, item := range tmp{
+		text, err1 := ioutil.ReadFile(item.Path)
+		if err1 != nil {
+			panic(err1)
+		}
+		temp := strings.Split(string(text), "\n")
+
+		for _, itemm := range temp{
+			if regg.MatchString(itemm){
+				d := reg.FindString(itemm)[1:len(reg.FindString(itemm))]
+				s, _ := strconv.Atoi(d)
+				sum += s
+				count++
+			}
+		}
+	}
+
+	if count != 0{
+		sum = sum/count
+	}
+
+	responseRaw := Response{
+		Sample_mean: sum,
+	}
 	response, err := json.Marshal(responseRaw)
 	if err != nil {
 		panic(err)
 	}
 	w.Write(response)
-
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 }
