@@ -117,6 +117,10 @@ func GetStatByAppMetrics(w http.ResponseWriter, r *http.Request){
 		sum = sum/count
 	}
 
+	if len(tmp) == 0{
+		sum = 1
+	}
+
 	responseRaw := Response{
 		Sample_mean: sum,
 	}
