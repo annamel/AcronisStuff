@@ -15,6 +15,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"regexp"
+	"strconv"
 	"strings"
 )
 
@@ -105,8 +106,9 @@ func GetStatByAppMetrics(w http.ResponseWriter, r *http.Request){
 
 		for _, itemm := range temp{
 			if regg.MatchString(itemm){
-				d := int(reg.FindString(itemm)[1])
-				sum += d
+				d := reg.FindString(itemm)[1:2]
+				s, _ := strconv.Atoi(d)
+				sum += s
 				count++
 			}
 		}
